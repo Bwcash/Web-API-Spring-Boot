@@ -57,6 +57,7 @@ class FetchJeepTest {
 		private int serverPort;
 	@Test
 	void testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied() {
+		
 		// given: a valid model, trim, and URI
 	    JeepModel model = JeepModel.WRANGLER;
 	    String trim = "Sport";
@@ -66,8 +67,12 @@ class FetchJeepTest {
 	    // then: a success (OK - 200)status code is returned
 	    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 	    //	 and: the actual list returned is the same as the expected list
+	    List<Jeep> actual = response.getBody();		actual.forEach(jeep -> jeep.setModelPk(null));
 	    List<Jeep> expected = buildExpected();
-	    assertThat(response.getBody()).isEqualTo(expected);
+	    
+	    assertThat(actual).isEqualTo(expected);
+	    
+	
 	}
 
 }
